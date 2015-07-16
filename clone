@@ -1,0 +1,50 @@
+cloner une vm c'est en faite sauvegarder une vm puis la restaurer avec un autre vmid libre 
+
+Procedure de backup 
+
+commnande : 
+vzdump VMID --dumpdir chemin-fichier --mode snapshot --compress lzo 
+
+explication 
+VMDI : identifiant de la machine à sauvegarder 
+chemin-fichier : mettre le chemin ou la sauvegarde sera enregistrer ex: /temp 
+snapshot : permet de faire le bakup pendant que la machine est allumé il d'autre option stop suspend 
+lzo : le type de compression il ya en deux type lzo et gzip 
+
+Exemple 
+vzdump 128 --dumpdir /tmp --mode snapshot --compress lzo 
+
+
+
+Procédure de restauration 
+
+la commande diffère selon que se soit une openvz ou une kvm 
+se mettre dans le dossier ou la sauvegarde a été effectuée 
+
+
+Openvz 
+
+commande 
+vzrestore fichier-dump vmid 
+
+explication 
+fichier-dump : le fichier de la sauvegarde 
+vmid : choisir un vmid de libre qui n'est pas utilisé 
+
+exemple: 
+v z estore vzdump-openvz-108-2014_06_25-17_10_23.tar.gz 188 
+
+
+
+KVM 
+
+commande 
+qmrestore fichier-dump vmid 
+
+Explication 
+f ichier-dump : le fichier de la sauvegarde 
+vmid : choisir un vmid de libre qui n'est pas utilisé 
+
+Exemple 
+qmrestore vzdump-qemu-128-2014_07_08-18_15_43.vma.gz 228 
+
